@@ -1,0 +1,84 @@
+﻿
+> quiz-app@0.1.0 lint
+> eslint
+
+
+C:\Users\balaj\Desktop\Quiz Application\src\components\analytics\AnalyticsDashboard.tsx
+  128:36  error  Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+C:\Users\balaj\Desktop\Quiz Application\src\components\analytics\AnalyticsDashboard.tsx:128:36
+  126 |                   tickLine={false}
+  127 |                 />
+> 128 |                 <Tooltip content={<CustomTooltip />} />
+      |                                    ^^^^^^^^^^^^^ This component is created during render
+  129 |                 <Line
+  130 |                   type="monotone"
+  131 |                   dataKey="score"
+
+C:\Users\balaj\Desktop\Quiz Application\src\components\analytics\AnalyticsDashboard.tsx:61:25
+  59 |   }
+  60 |
+> 61 |   const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: { value: number }[]; label?: string }) => {
+     |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 62 |     if (active && payload && payload.length) {
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 63 |       return (
+     ΓÇª
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 70 |     return null;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 71 |   };
+     | ^^^^ The component is created during render here
+  72 |
+  73 |   return (
+  74 |     <div className="w-full max-w-4xl mx-auto space-y-6 animate-fade-in-up">  react-hooks/static-components
+
+C:\Users\balaj\Desktop\Quiz Application\src\components\chat\AIChatAssistant.tsx
+  74:14  warning  'err' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\balaj\Desktop\Quiz Application\src\components\quiz\QuestionTimer.tsx
+  64:16  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+C:\Users\balaj\Desktop\Quiz Application\src\components\quiz\QuestionTimer.tsx:64:16
+  62 |   }, [isActive, questionKey, limitSeconds, onExpire, clearTimer]);
+  63 |
+> 64 |   const pct = (remainingRef.current / limitSeconds) * 100;
+     |                ^^^^^^^^^^^^^^^^^^^^ Cannot access ref value during render
+  65 |   const isWarning = pct <= 33;
+  66 |   const isCritical = pct <= 15;
+  67 |  react-hooks/refs
+
+C:\Users\balaj\Desktop\Quiz Application\src\components\quiz\QuizInterface.tsx
+  31:62  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\balaj\Desktop\Quiz Application\src\components\quiz\QuizInterface.tsx:31:62
+  29 |   const [isAnswered, setIsAnswered] = useState(false);
+  30 |   const [showExplanation, setShowExplanation] = useState(false);
+> 31 |   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
+     |                                                              ^^^^^^^^^^ Cannot call impure function
+  32 |
+  33 |   const question = session?.questions[session.currentQuestionIndex];
+  34 |   const isLastQuestion =  react-hooks/purity
+  36:9   warning  'currentAnswer' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       @typescript-eslint/no-unused-vars
+  51:6   warning  React Hook useEffect has missing dependencies: 'question' and 'session?.answers'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     react-hooks/exhaustive-deps
+  71:35  error    Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\Users\balaj\Desktop\Quiz Application\src\components\quiz\QuizInterface.tsx:71:35
+  69 |     if (isAnswered || !question) return;
+  70 |     const isCorrect = optionId === question.correctOptionId;
+> 71 |     const timeTaken = Math.round((Date.now() - questionStartTime) / 1000);
+     |                                   ^^^^^^^^^^ Cannot call impure function
+  72 |
+  73 |     setSelectedOptionId(optionId);
+  74 |     setIsAnswered(true);                                                                                react-hooks/purity
+
+Γ£û 7 problems (4 errors, 3 warnings)
+
