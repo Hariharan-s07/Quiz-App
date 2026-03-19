@@ -44,14 +44,8 @@ export default function HomePage() {
       <main className="w-full flex justify-center">
         <div className="w-full max-w-7xl px-4 sm:px-6 py-12 sm:py-16 flex flex-col items-center">
           <div className="text-center mb-14 w-full max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 animate-float">
-              <Zap className="w-4 h-4" />
-              Powered by Google Gemini AI
-            </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-5 leading-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
-              Master Any Topic with{' '}
-              <span className="gradient-text">AI-Powered</span>
-              <br />Quizzes
+              Master Any Topic with <br /><span className="gradient-text">AI-Powered</span> Quizzes
             </h1>
             <p className="text-lg text-gray-400 mx-auto mb-8 text-center leading-relaxed">
               Generate personalized multiple-choice quizzes on any subject instantly.
