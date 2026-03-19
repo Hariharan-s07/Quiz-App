@@ -51,11 +51,6 @@ export default function HomePage() {
               Generate personalized multiple-choice quizzes on any subject instantly.
               Track your progress, analyze performance, and learn faster.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
-              {['✓ Free to use', '✓ No sign-up required', '✓ Instant generation', '✓ Detailed analytics'].map((item) => (
-                <span key={item} className="text-gray-500">{item}</span>
-              ))}
-            </div>
           </div>
 
         <QuizConfigForm />

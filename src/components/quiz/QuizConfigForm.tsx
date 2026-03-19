@@ -71,7 +71,7 @@ export default function QuizConfigForm() {
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div>
             <label htmlFor="quiz-topic" className="block text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-indigo-400" />
@@ -84,10 +84,11 @@ export default function QuizConfigForm() {
               onChange={(e) => setConfig({ ...config, topic: e.target.value })}
               onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
               placeholder="e.g., World War II, JavaScript, Astronomy..."
-              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:bg-indigo-500/[0.04] transition-all duration-200 text-sm mb-3"
+              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:bg-indigo-500/[0.04] transition-all duration-200 text-sm mb-4"
               disabled={isGenerating}
               autoComplete="off"
             />
+            <p className="text-xs text-gray-500 mb-3">Popular Suggestions:</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
               {TOPIC_SUGGESTIONS.map((topic) => (
                 <button
@@ -107,7 +108,7 @@ export default function QuizConfigForm() {
             <label htmlFor="num-questions" className="block text-sm font-semibold text-gray-300 mb-4">
               Number of Questions
             </label>
-            <div className="space-y-4">
+            <div className="space-y-5">
               <input
                 id="num-questions"
                 type="range"
@@ -158,6 +159,8 @@ export default function QuizConfigForm() {
               ))}
             </div>
           </div>
+
+          <div className="h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent my-2"></div>
 
           <button
             id="toggle-advanced"
@@ -230,6 +233,7 @@ export default function QuizConfigForm() {
             </div>
           )}
 
+          <div className="pt-4">
           <button
             id="generate-quiz-btn"
             onClick={handleGenerate}
@@ -250,6 +254,7 @@ export default function QuizConfigForm() {
               )}
             </span>
           </button>
+        </div>
         </div>
       </div>
     </div>
