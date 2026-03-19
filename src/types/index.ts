@@ -1,7 +1,6 @@
-// ─── Quiz Types ───────────────────────────────────────────────────────────────
-
 export type Difficulty = 'easy' | 'medium' | 'hard';
 export type QuestionType = 'multiple-choice' | 'true-false';
+export type QuizStatus = 'idle' | 'generating' | 'active' | 'paused' | 'completed';
 
 export interface QuizOption {
   id: string;
@@ -22,10 +21,8 @@ export interface QuizConfig {
   numQuestions: number;
   difficulty: Difficulty;
   enableTimer: boolean;
-  timeLimitSeconds: number; // per question
+  timeLimitSeconds: number;
 }
-
-// ─── Quiz Session (active quiz) ───────────────────────────────────────────────
 
 export interface UserAnswer {
   questionId: string;
@@ -34,36 +31,30 @@ export interface UserAnswer {
   timeTakenSeconds: number;
 }
 
-export type QuizStatus = 'idle' | 'generating' | 'active' | 'paused' | 'completed';
-
 export interface QuizSession {
   id: string;
   config: QuizConfig;
   questions: QuizQuestion[];
-  answers: Record<string, UserAnswer>; // questionId -> answer
+  answers: Record<string, UserAnswer>;
   currentQuestionIndex: number;
   status: QuizStatus;
-  startedAt: number; // timestamp
-  completedAt?: number; // timestamp
+  startedAt: number;
+  completedAt?: number;
   totalTimeSeconds: number;
 }
-
-// ─── Quiz History ─────────────────────────────────────────────────────────────
 
 export interface QuizHistoryEntry {
   id: string;
   topic: string;
   difficulty: Difficulty;
   numQuestions: number;
-  score: number;         // correct count
+  score: number;
   percentage: number;
   totalTimeSeconds: number;
-  completedAt: number;  // timestamp
+  completedAt: number;
   questions: QuizQuestion[];
   answers: Record<string, UserAnswer>;
 }
-
-// ─── AI Chat ──────────────────────────────────────────────────────────────────
 
 export interface ChatMessage {
   id: string;
@@ -71,8 +62,6 @@ export interface ChatMessage {
   content: string;
   timestamp: number;
 }
-
-// ─── Analytics ────────────────────────────────────────────────────────────────
 
 export interface CategoryPerformance {
   topic: string;

@@ -59,10 +59,8 @@ export default function QuizConfigForm() {
   return (
     <div className="w-full max-w-2xl mx-auto animate-fade-in-up">
       <div className="glass-card rounded-2xl p-6 sm:p-8 border border-white/[0.06] relative overflow-hidden">
-        {/* Decorative glow */}
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-indigo-600 rounded-full opacity-5 blur-3xl pointer-events-none" />
 
-        {/* Header */}
         <div className="flex items-center gap-3 mb-8">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
             <Settings className="w-5 h-5 text-white" />
@@ -74,33 +72,30 @@ export default function QuizConfigForm() {
         </div>
 
         <div className="space-y-6">
-          {/* Topic input */}
           <div>
-            <label htmlFor="quiz-topic" className="block text-sm font-semibold text-gray-300 mb-2 flex items-center gap-2">
+            <label htmlFor="quiz-topic" className="block text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-indigo-400" />
               Quiz Topic
             </label>
-            <div className="relative">
-              <input
-                id="quiz-topic"
-                type="text"
-                value={config.topic}
-                onChange={(e) => setConfig({ ...config, topic: e.target.value })}
-                onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
-                placeholder="e.g., World War II, JavaScript, Astronomy..."
-                className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:bg-indigo-500/[0.04] transition-all duration-200 text-sm"
-                disabled={isGenerating}
-                autoComplete="off"
-              />
-            </div>
-            {/* Topic suggestions */}
-            <div className="flex flex-wrap gap-2 mt-3">
+            <input
+              id="quiz-topic"
+              type="text"
+              value={config.topic}
+              onChange={(e) => setConfig({ ...config, topic: e.target.value })}
+              onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
+              placeholder="e.g., World War II, JavaScript, Astronomy..."
+              className="w-full bg-white/[0.04] border border-white/[0.08] rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500/50 focus:bg-indigo-500/[0.04] transition-all duration-200 text-sm mb-3"
+              disabled={isGenerating}
+              autoComplete="off"
+            />
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
               {TOPIC_SUGGESTIONS.map((topic) => (
                 <button
                   key={topic}
                   id={`topic-suggestion-${topic.toLowerCase().replace(/\s+/g, '-')}`}
                   onClick={() => setConfig({ ...config, topic })}
-                  className="px-3 py-1 text-xs rounded-full bg-white/[0.04] border border-white/[0.06] text-gray-400 hover:text-indigo-400 hover:border-indigo-500/40 hover:bg-indigo-500/[0.06] transition-all duration-200"
+                  className="px-3 py-2 text-xs font-medium rounded-lg bg-white/[0.04] border border-white/[0.06] text-gray-400 hover:text-indigo-400 hover:border-indigo-500/40 hover:bg-indigo-500/[0.06] transition-all duration-200 whitespace-nowrap"
+                  disabled={isGenerating}
                 >
                   {topic}
                 </button>
@@ -108,13 +103,11 @@ export default function QuizConfigForm() {
             </div>
           </div>
 
-          {/* Number of questions */}
           <div>
-            <label htmlFor="num-questions" className="block text-sm font-semibold text-gray-300 mb-2">
-              Number of Questions:{' '}
-              <span className="text-indigo-400 font-bold">{config.numQuestions}</span>
+            <label htmlFor="num-questions" className="block text-sm font-semibold text-gray-300 mb-4">
+              Number of Questions
             </label>
-            <div className="relative">
+            <div className="space-y-4">
               <input
                 id="num-questions"
                 type="range"
@@ -129,37 +122,43 @@ export default function QuizConfigForm() {
                 }}
                 disabled={isGenerating}
               />
-              <div className="flex justify-between text-xs text-gray-600 mt-1">
-                <span>5</span>
-                <span>20</span>
+              <div className="flex items-center justify-between">
+                <div className="flex justify-between text-xs text-gray-600 flex-1">
+                  <span>5 Questions</span>
+                  <span>20 Questions</span>
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <div className="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-indigo-500/10 border border-indigo-500/30">
+                  <span className="text-lg font-bold text-indigo-400">{config.numQuestions}</span>
+                  <span className="text-sm text-indigo-400 ml-1">Questions</span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Difficulty */}
-          <div>
-            <p className="text-sm font-semibold text-gray-300 mb-3">Difficulty Level</p>
+          <div className="pt-2">
+            <p className="text-sm font-semibold text-gray-300 mb-4">Difficulty Level</p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {DIFFICULTY_OPTIONS.map((opt) => (
                 <button
                   key={opt.value}
                   id={`difficulty-${opt.value}`}
                   onClick={() => setConfig({ ...config, difficulty: opt.value })}
-                  className={`p-3 rounded-xl border text-center transition-all duration-200 ${
+                  className={`p-4 rounded-xl border text-center transition-all duration-200 ${
                     config.difficulty === opt.value
-                      ? opt.color + ' scale-[1.02]'
-                      : 'border-white/[0.06] bg-white/[0.02] text-gray-500 hover:border-white/[0.12]'
+                      ? opt.color + ' scale-[1.02] shadow-lg'
+                      : 'border-white/[0.06] bg-white/[0.02] text-gray-500 hover:border-white/[0.12] hover:bg-white/[0.04]'
                   }`}
                   disabled={isGenerating}
                 >
-                  <div className="font-semibold text-sm">{opt.label}</div>
-                  <div className="text-xs mt-0.5 opacity-80">{opt.desc}</div>
+                  <div className="font-bold text-sm">{opt.label}</div>
+                  <div className="text-xs mt-1 opacity-75">{opt.desc}</div>
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Advanced Options Toggle */}
           <button
             id="toggle-advanced"
             onClick={() => setShowAdvanced(!showAdvanced)}
@@ -169,7 +168,6 @@ export default function QuizConfigForm() {
             Advanced Options
           </button>
 
-          {/* Advanced Options */}
           {showAdvanced && (
             <div className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-4 animate-fade-in-up">
               <div className="flex items-center justify-between">
@@ -225,7 +223,6 @@ export default function QuizConfigForm() {
             </div>
           )}
 
-          {/* Error */}
           {error && (
             <div className="flex items-start gap-3 p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 animate-fade-in-up">
               <AlertCircle className="w-5 h-5 text-rose-400 flex-shrink-0 mt-0.5" />
@@ -233,7 +230,6 @@ export default function QuizConfigForm() {
             </div>
           )}
 
-          {/* Generate Button */}
           <button
             id="generate-quiz-btn"
             onClick={handleGenerate}

@@ -38,7 +38,7 @@ export default function ResultsView() {
     return { correct, incorrect, skipped: skipped + unanswered, percentage };
   }, [session, mounted]);
 
-  if (!mounted) return null; // Prevents hydration mismatch
+  if (!mounted) return null;
 
   if (!session || !stats) return null;
 
@@ -62,7 +62,6 @@ export default function ResultsView() {
 
   return (
     <div className="w-full max-w-3xl mx-auto space-y-6 animate-fade-in-up">
-      {/* Score Card */}
       <div className="glass-card rounded-2xl p-8 border border-white/[0.06] text-center relative overflow-hidden">
         <div className={`absolute inset-0 bg-gradient-to-br ${scoreGrad} opacity-[0.04] pointer-events-none`} />
 
@@ -87,7 +86,7 @@ export default function ResultsView() {
         </div>
       </div>
 
-      {/* Stats Grid */}
+
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
         {[
           { label: 'Correct', value: stats.correct, icon: CheckCircle2, color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
@@ -103,7 +102,6 @@ export default function ResultsView() {
         ))}
       </div>
 
-      {/* Question Breakdown */}
       <div className="glass-card rounded-2xl border border-white/[0.06] overflow-hidden">
         <div className="p-5 border-b border-white/[0.06] flex items-center gap-2">
           <Target className="w-5 h-5 text-indigo-400" />
@@ -184,7 +182,6 @@ export default function ResultsView() {
         </div>
       </div>
 
-      {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-3">
         <button
           id="retake-quiz-btn"

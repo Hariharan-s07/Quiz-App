@@ -46,13 +46,15 @@ export default function AnalyticsDashboard() {
 
   if (!entries.length) {
     return (
-      <div className="w-full max-w-4xl mx-auto">
-        <div className="glass-card rounded-2xl p-16 border border-white/[0.06] text-center">
-          <BarChart3 className="w-12 h-12 text-gray-700 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-500 mb-2">No analytics yet</h3>
-          <p className="text-sm text-gray-600">
-            Complete some quizzes to see your performance analytics here.
-          </p>
+      <div className="w-full flex justify-center min-h-screen">
+        <div className="w-full max-w-4xl px-4 sm:px-6 py-8 flex items-center justify-center">
+          <div className="glass-card rounded-2xl p-16 border border-white/[0.06] text-center max-w-md">
+            <BarChart3 className="w-12 h-12 text-gray-700 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-gray-500 mb-2">No analytics yet</h3>
+            <p className="text-sm text-gray-600">
+              Complete some quizzes to see your performance analytics here.
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -71,17 +73,17 @@ export default function AnalyticsDashboard() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6 animate-fade-in-up">
-      {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
-          <BarChart3 className="w-5 h-5 text-white" />
+    <div className="w-full flex justify-center min-h-screen">
+      <div className="w-full max-w-4xl px-4 sm:px-6 py-8 space-y-6 animate-fade-in-up">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
+            <BarChart3 className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-white">Analytics</h1>
+            <p className="text-sm text-gray-500">{entries.length} total attempts</p>
+          </div>
         </div>
-        <div>
-          <h1 className="text-2xl font-bold text-white">Analytics</h1>
-          <p className="text-sm text-gray-500">{entries.length} total attempts</p>
-        </div>
-      </div>
 
       {/* Stat Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -250,6 +252,7 @@ export default function AnalyticsDashboard() {
             );
           })}
         </div>
+      </div>
       </div>
     </div>
   );

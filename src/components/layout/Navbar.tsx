@@ -18,7 +18,6 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 glass-card border-b border-white/[0.06]">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group" id="navbar-logo">
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
             <Brain className="w-5 h-5 text-white" />
@@ -28,7 +27,6 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-1">
           {navItems.map((item) => {
             const Icon = item.icon;
@@ -51,7 +49,6 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Mobile Menu Button */}
         <button
           id="navbar-mobile-toggle"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -62,7 +59,6 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile Dropdown */}
       {mobileOpen && (
         <div className="md:hidden border-t border-white/[0.06] px-4 py-3 space-y-1 animate-fade-in-up">
           {navItems.map((item) => {

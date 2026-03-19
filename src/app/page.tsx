@@ -41,33 +41,31 @@ export default function HomePage() {
     <div className="min-h-screen relative z-10">
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col items-center">
-        {/* Hero */}
-        <div className="text-center mb-14 w-full">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 animate-float">
-            <Zap className="w-4 h-4" />
-            Powered by Google Gemini AI
+      <main className="w-full flex justify-center">
+        <div className="w-full max-w-7xl px-4 sm:px-6 py-12 sm:py-16 flex flex-col items-center">
+          <div className="text-center mb-14 w-full max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-sm font-medium mb-6 animate-float">
+              <Zap className="w-4 h-4" />
+              Powered by Google Gemini AI
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-5 leading-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
+              Master Any Topic with{' '}
+              <span className="gradient-text">AI-Powered</span>
+              <br />Quizzes
+            </h1>
+            <p className="text-lg text-gray-400 mx-auto mb-8 text-center leading-relaxed">
+              Generate personalized multiple-choice quizzes on any subject instantly.
+              Track your progress, analyze performance, and learn faster.
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
+              {['✓ Free to use', '✓ No sign-up required', '✓ Instant generation', '✓ Detailed analytics'].map((item) => (
+                <span key={item} className="text-gray-500">{item}</span>
+              ))}
+            </div>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-5 leading-tight" style={{ fontFamily: 'Outfit, sans-serif' }}>
-            Master Any Topic with{' '}
-            <span className="gradient-text">AI-Powered</span>
-            <br />Quizzes
-          </h1>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-8 text-center">
-            Generate personalized multiple-choice quizzes on any subject instantly.
-            Track your progress, analyze performance, and learn faster.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
-            {['✓ Free to use', '✓ No sign-up required', '✓ Instant generation', '✓ Detailed analytics'].map((item) => (
-              <span key={item} className="text-gray-500">{item}</span>
-            ))}
-          </div>
-        </div>
 
-        {/* Config Form */}
         <QuizConfigForm />
 
-        {/* Features */}
         <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
           {FEATURES.map((feat) => {
             const Icon = feat.icon;
@@ -96,6 +94,7 @@ export default function HomePage() {
           <Link href="/analytics" className="hover:text-indigo-400 transition-colors flex items-center gap-1.5">
             View Analytics
           </Link>
+        </div>
         </div>
       </main>
     </div>

@@ -11,24 +11,14 @@ import type {
 
 interface QuizState {
   session: QuizSession | null;
-
-  // Session management
   startSession: (config: QuizConfig, questions: QuizQuestion[]) => void;
   resetSession: () => void;
   setStatus: (status: QuizStatus) => void;
-
-  // Navigation
   goToQuestion: (index: number) => void;
   nextQuestion: () => void;
   prevQuestion: () => void;
-
-  // Answering
   submitAnswer: (answer: UserAnswer) => void;
-
-  // Timer
   incrementTotalTime: (seconds: number) => void;
-
-  // Complete
   completeQuiz: () => void;
 }
 
@@ -59,26 +49,20 @@ export const useQuizStore = create<QuizState>()(
           return { session: { ...state.session, status } };
         }),
 
-      goToQuestion: (index) =>
+      goToQuestion: (index) => {
         set((state) => {
           if (!state.session) return state;
-          const clamped = Math.max(
-            0,
-            Math.min(index, state.session.questions.length - 1)
-          );
-          return {
-            session: { ...state.session, currentQuestionIndex: clamped },
-          };
-        }),
+          const bounded = Math.max(0, Math.min(index, state.session.questions.length - 1));
+          return { session: { ...state.session, currentQuestionIndex: bounded } };
+        });
+      },
 
       nextQuestion: () => {
         const { session } = get();
         if (!session) return;
         const next = session.currentQuestionIndex + 1;
         if (next < session.questions.length) {
-          set({
-            session: { ...session, currentQuestionIndex: next },
-          });
+          set({ session: { ...session, currentQuestionIndex: next } });
         }
       },
 
@@ -87,9 +71,7 @@ export const useQuizStore = create<QuizState>()(
         if (!session) return;
         const prev = session.currentQuestionIndex - 1;
         if (prev >= 0) {
-          set({
-            session: { ...session, currentQuestionIndex: prev },
-          });
+          set({ session: { ...session, currentQuestionIndex: prev } });
         }
       },
 

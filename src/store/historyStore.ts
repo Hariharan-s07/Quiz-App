@@ -6,7 +6,7 @@ type SortField = 'completedAt' | 'percentage' | 'topic';
 type SortOrder = 'asc' | 'desc';
 
 interface HistoryFilters {
-  difficulty: string; // 'all' | 'easy' | 'medium' | 'hard'
+  difficulty: string;
   topic: string;
   sortField: SortField;
   sortOrder: SortOrder;
@@ -15,7 +15,6 @@ interface HistoryFilters {
 interface HistoryState {
   entries: QuizHistoryEntry[];
   filters: HistoryFilters;
-
   addEntry: (entry: QuizHistoryEntry) => void;
   removeEntry: (id: string) => void;
   clearHistory: () => void;
@@ -53,17 +52,12 @@ export const useHistoryStore = create<HistoryState>()(
 
       getFilteredEntries: () => {
         const { entries, filters } = get();
-
         let filtered = [...entries];
 
-        // Filter by difficulty
         if (filters.difficulty !== 'all') {
-          filtered = filtered.filter(
-            (e) => e.difficulty === filters.difficulty
-          );
+          filtered = filtered.filter((e) => e.difficulty === filters.difficulty);
         }
 
-        // Filter by topic search
         if (filters.topic.trim()) {
           const topicLower = filters.topic.toLowerCase();
           filtered = filtered.filter((e) =>
@@ -71,7 +65,6 @@ export const useHistoryStore = create<HistoryState>()(
           );
         }
 
-        // Sort
         filtered.sort((a, b) => {
           let comparison = 0;
           if (filters.sortField === 'completedAt') {

@@ -7,7 +7,7 @@ interface QuestionTimerProps {
   limitSeconds: number;
   onExpire: () => void;
   isActive: boolean;
-  questionKey: string; // resets when question changes
+  questionKey: string;
 }
 
 export default function QuestionTimer({
@@ -29,7 +29,6 @@ export default function QuestionTimer({
   }, []);
 
   useEffect(() => {
-    // Reset on question change
     remainingRef.current = limitSeconds;
     if (displayRef.current) displayRef.current.textContent = String(limitSeconds);
     if (barRef.current) barRef.current.style.width = '100%';

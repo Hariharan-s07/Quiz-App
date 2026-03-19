@@ -3,9 +3,8 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/ge
 import { v4 as uuidv4 } from 'uuid';
 import type { QuizConfig, QuizQuestion, QuizOption, Difficulty } from '@/types';
 
-// Simple in-memory cache for generated quizzes (keyed by hash of config)
 const cache = new Map<string, { questions: QuizQuestion[]; timestamp: number }>();
-const CACHE_TTL_MS = 10 * 60 * 1000; // 10 minutes
+const CACHE_TTL_MS = 10 * 60 * 1000;
 
 function getCacheKey(config: QuizConfig): string {
   return `${config.topic.toLowerCase()}-${config.numQuestions}-${config.difficulty}`;
@@ -55,10 +54,9 @@ interface RawQuestion {
 }
 
 function parseAndValidate(raw: string, config: QuizConfig): QuizQuestion[] {
-  // Extract JSON structure securely regardless of fences or markdown
   const match = raw.match(/\{[\s\S]*\}/);
   if (!match) {
-    throw new Error('No valid JSON found in the AI response.');
+    throw new Error('No valid JSON found in the response');
   }
   const cleaned = match[0].trim();
   const parsed = JSON.parse(cleaned);
@@ -102,7 +100,6 @@ export async function POST(req: NextRequest) {
   try {
     const config: QuizConfig = await req.json();
 
-    // Basic validation
     if (!config.topic?.trim()) {
       return NextResponse.json({ error: 'Topic is required' }, { status: 400 });
     }
@@ -113,18 +110,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Check cache
     const cacheKey = getCacheKey(config);
     const cached = cache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
       return NextResponse.json({ questions: cached.questions, fromCache: true });
     }
 
-    // Initialize Gemini
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
-        { error: 'AI service is not configured. Please set GEMINI_API_KEY.' },
+        { error: 'AI service is not configured' },
         { status: 503 }
       );
     }
@@ -146,7 +141,6 @@ export async function POST(req: NextRequest) {
 
     const prompt = buildPrompt(config);
 
-    // Retry logic (up to 2 attempts)
     let lastError: Error | null = null;
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
@@ -154,13 +148,10 @@ export async function POST(req: NextRequest) {
         const text = result.response.text();
         const questions = parseAndValidate(text, config);
 
-        // Cache the result
         cache.set(cacheKey, { questions, timestamp: Date.now() });
-
         return NextResponse.json({ questions });
       } catch (err) {
         lastError = err instanceof Error ? err : new Error('Unknown error');
-        // Brief wait before retry
         if (attempt === 0) await new Promise((r) => setTimeout(r, 1000));
       }
     }

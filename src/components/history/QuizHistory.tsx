@@ -35,9 +35,9 @@ export default function QuizHistory() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto space-y-6 animate-fade-in-up">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div className="w-full flex justify-center min-h-screen">
+      <div className="w-full max-w-4xl px-4 sm:px-6 py-8 flex flex-col">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center">
             <History className="w-5 h-5 text-white" />
@@ -152,14 +152,15 @@ export default function QuizHistory() {
         </div>
       </div>
 
-      {/* Entries */}
       {entries.length === 0 ? (
-        <div className="glass-card rounded-2xl p-16 border border-white/[0.06] text-center">
+        <div className="flex items-center justify-center">
+          <div className="glass-card rounded-2xl p-16 border border-white/[0.06] text-center max-w-md">
           <History className="w-12 h-12 text-gray-700 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-500 mb-2">No quizzes yet</h3>
           <p className="text-sm text-gray-600">
             Complete a quiz to see your history here.
           </p>
+          </div>
         </div>
       ) : (
         <div className="space-y-3">
@@ -228,6 +229,7 @@ export default function QuizHistory() {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

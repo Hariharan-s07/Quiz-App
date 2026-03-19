@@ -21,8 +21,7 @@ export async function generateQuizQuestions(
     );
   }
 
-  const data = await response.json();
-  return data;
+  return response.json();
 }
 
 export interface ChatResponse {
